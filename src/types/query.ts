@@ -1,7 +1,7 @@
 export interface timeline {
     start: string,
     end: string,
-    departments?: Array<string>, 
+    departments?: Array<{name: string}>, 
     archive: boolean
 }
 
@@ -49,16 +49,16 @@ export interface user {
 }
 
 export interface searchBody {
-    quote: Array<any>,
-    file: Array<any>,
-    folder: Array<any>,
-    wildcard: Array<any>,
-    minus: Array<any>,
-    general: Array<any>
+    quote: Array<{value:string}>,
+    file: Array<{value:string}>,
+    folder: Array<{value:string}>,
+    wildcard: Array<{value:string}>,
+    minus: Array<{value:string}>,
+    general: Array<{value:string}>
 }
 
 export interface fResponse {
-    hits: any
+    hits: Array<any>
 }
 
 export interface clientResponse {

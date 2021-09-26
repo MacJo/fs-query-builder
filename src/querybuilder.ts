@@ -1,4 +1,4 @@
-import { timeline, query, searchBody, queryBool, queryMulti, queryMust, queryMustNot, queryShould, queryWild, postfilter} from './types/query';
+import { timeline, query, searchBody, queryBool, queryMulti, queryMust, queryMustNot, queryShould, queryWild} from './types/query';
 
 export function queryBuilder(queryBody: searchBody, timeline: timeline): query {
 
@@ -10,14 +10,12 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline): query {
     let queryShould: queryShould = { should: [] };
     let queryWild: queryWild = { wildcard: {} };
     
-    let isBoolQuery = false;
-    let isMultiMatchQuery = false;
-    let isWildQuery = false;
+    let isBoolQuery: boolean = false;
+    let isMultiMatchQuery: boolean = false;
+    let isWildQuery: boolean = false;
 
     //Versions previous to 0.2.2 do not have timeline
     if (timeline) {
-        //console.log('We got timelines!');
-        //console.log(timeline);
         isBoolQuery = true;
         queryMust.must.push(
             {
@@ -32,8 +30,6 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline): query {
         )
 
         if (timeline.departments !== undefined) {
-            //// console.log(timeline.departments);
-            //console.log('timeline departments defined');
             if (timeline.departments.length !== 0) {
                 isBoolQuery = true;
                 for (let department of timeline.departments) {
