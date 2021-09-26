@@ -105,7 +105,6 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline): query {
     // QUERY WITH WILDCARD
     //TO TEST --> Using wrong array
     if (queryBody.wildcard.length !== 0) {
-        let wildValue = { wildcard: { label_index: { value: queryBody.wildcard[0].value } } }
         queryMust.must.push({ wildcard: { label_index: { value: queryBody.wildcard[0].value } } });
     }
 
@@ -123,7 +122,9 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline): query {
             "query": data,
             "fields": ["label_index", "metadata"]
         };
+        
         queryMulti.multi_match = general;
+        
         if (isBoolQuery) {
             queryMust.must.push(queryMulti);
             if (queryShould.should.length !== 0) queryBool.bool = Object.assign(queryBool.bool, { minimum_should_match: 1 }); //testing this
