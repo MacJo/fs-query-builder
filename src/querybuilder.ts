@@ -110,8 +110,8 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline = null): 
     return query;
 }
 
-function rTimeline(timeline){
-    let timezone = "+01:00";
+function rTimeline(timeline: timeline){
+let timezone = "+01:00";
     let date_gte = "now-2y"; //"now-1d", "now-1y", "2020-11-18||/M"
     let date_lte = "now";
 
