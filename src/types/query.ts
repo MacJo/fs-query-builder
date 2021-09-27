@@ -62,8 +62,8 @@ export interface fResponse {
 }
 
 export interface clientResponse {
-    rCode?: number | '000',
-    message: any | '000'
+    rCode?: number,
+    message?: string
 }
 
 export interface updatedIndex {

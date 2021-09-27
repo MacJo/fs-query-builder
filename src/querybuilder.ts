@@ -14,9 +14,6 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline = null): 
     let isMultiMatchQuery: boolean = false;
     let isWildQuery: boolean = false;
 
-
-    
-
     // Define timeline
     () => queryMust.must.push(rTimeline(timeline))
 
@@ -64,7 +61,6 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline = null): 
     }
 
     // QUERY WITH WILDCARD
-    //TO TEST --> Using wrong array
     if (queryBody.wildcard.length > 0) {
         queryMust.must.push({ wildcard: { label_index: { value: queryBody.wildcard[0].value } } });
     }
@@ -80,8 +76,8 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline = null): 
         }
 
         let general = {
-            "query": data,
-            "fields": ["label_index", "metadata"]
+            query: data,
+            fields: ["label_index", "metadata"]
         };
 
         queryMulti.multi_match = general;
@@ -93,13 +89,13 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline = null): 
         else isMultiMatchQuery = true;
     }
 
-    //IF Bool quote file folder minus
     if (isBoolQuery) {
         if (queryMust.must.length > 0) queryBool.bool = Object.assign(queryBool.bool, queryMust);
         if (queryMustNot.must_not.length > 0) queryBool.bool = Object.assign(queryBool.bool, queryMustNot);
         if (queryShould.should.length > 0) queryBool.bool = Object.assign(queryBool.bool, queryShould);
         if (Object.getOwnPropertyNames(queryBool.bool).length > 0) query.query = Object.assign(query.query, queryBool);
     }
+    
     if (isWildQuery) {
         if (Object.getOwnPropertyNames(queryWild.wildcard).length > 0) query.query = Object.assign(query, queryWild);
     }
@@ -111,7 +107,7 @@ export function queryBuilder(queryBody: searchBody, timeline: timeline = null): 
 }
 
 function rTimeline(timeline: timeline){
-let timezone = "+01:00";
+    let timezone = "+01:00";
     let date_gte = "now-2y"; //"now-1d", "now-1y", "2020-11-18||/M"
     let date_lte = "now";
 
