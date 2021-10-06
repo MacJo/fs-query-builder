@@ -1,6 +1,6 @@
 import { timeline, query, searchBody, queryBool, queryMulti, queryMust, queryMustNot, queryShould, queryWild } from './types/query';
 
-export function queryBuilder(queryBody: searchBody, timeline: timeline = null): query {
+export function queryBuilder(queryBody: searchBody, timeline: timeline): query {
 
     let query: query = { size: 100, query: {} };
     let queryBool: queryBool = { bool: {} };
